@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据可视化交互平台</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <h1 class="nav-title">数据可视化交互平台</h1>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link active">首页</a></li>
+                <li><a href="#charts" class="nav-link">图表展示</a></li>
+                <li><a href="#interactive" class="nav-link">交互功能</a></li>
+                <li><a href="#about" class="nav-link">关于</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 首页部分 -->
+    <section id="home" class="section active">
+        <div class="hero">
+            <div class="hero-content">
+                <h2>探索数据可视化的魅力</h2>
+                <p>基于matplotlib和现代前端技术创建的交互式可视化平台</p>
+                <button class="cta-button" onclick="showSection('charts')">开始探索</button>
+            </div>
+        </div>
+        
+        <div class="features">
+            <div class="feature-card">
+                <h3>📊 多种图表类型</h3>
+                <p>支持折线图、柱状图、饼图、散点图等多种可视化形式</p>
+            </div>
+            <div class="feature-card">
+                <h3>🎯 交互式操作</h3>
+                <p>支持点击、拖拽、缩放等交互功能，增强用户体验</p>
+            </div>
+            <div class="feature-card">
+                <h3>📱 响应式设计</h3>
+                <p>适配不同设备尺寸，确保在各种设备上良好显示</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 图表展示部分 -->
+    <section id="charts" class="section">
+        <div class="container">
+            <h2>第3章：六个实例图表完整展示</h2>
+            <p class="section-description">基于第3章.ipynb文件中的matplotlib可视化内容，完整展示六个实例图表，支持交互操作</p>
+            
+            <div class="chart-controls">
+                <button class="control-btn active" onclick="showChart('bar')">实例1: 2019年电影票房排行</button>
+                <button class="control-btn" onclick="showChart('pie')">实例2: 支付宝月账单报告</button>
+                <button class="control-btn" onclick="showChart('scatter')">实例3: 汽车制动距离</button>
+                <button class="control-btn" onclick="showChart('histogram')">实例4: 英语成绩对比</button>
+                <button class="control-btn" onclick="showChart('jam')">实例5: 果酱面包配料比例</button>
+                <button class="control-btn" onclick="showChart('gmv')">实例6: 阿里巴巴GMV数据</button>
+            </div>
+            
+            <div class="chart-container">
+                <div id="bar-chart" class="chart active">
+                    <div class="chart-header">
+                        <h3>实例1: 2019年内地电影票房排行榜</h3>
+                        <p class="chart-description">展示2019年热门电影的票房数据，包含水平柱状图和电影名称标签</p>
+                        <div class="chart-controls-small">
+                            <button onclick="updateBarChart('sort')">排序</button>
+                            <button onclick="updateBarChart('animate')">动画效果</button>
+                            <button onclick="resetBarChart()">重置</button>
+                        </div>
+                    </div>
+                    <div id="bar-chart-canvas" class="chart-canvas"></div>
+                </div>
+                
+                <div id="pie-chart" class="chart">
+                    <div class="chart-header">
+                        <h3>实例2: 支付宝月账单报告</h3>
+                        <p class="chart-description">展示支付宝月账单的消费分类占比，包含标题、图例和分离效果</p>
+                        <div class="chart-controls-small">
+                            <button onclick="updatePieChart('explode')">分离效果</button>
+                            <button onclick="updatePieChart('rotate')">旋转</button>
+                            <button onclick="resetPieChart()">重置</button>
+                        </div>
+                    </div>
+                    <div id="pie-chart-canvas" class="chart-canvas"></div>
+                </div>
+                
+                <div id="scatter-chart" class="chart">
+                    <div class="chart-header">
+                        <h3>实例3: 汽车速度与制动距离的关系</h3>
+                        <p class="chart-description">展示汽车速度与制动距离的散点分布，包含网格线和坐标轴标签</p>
+                        <div class="chart-controls-small">
+                            <button onclick="updateScatterChart('size')">调整大小</button>
+                            <button onclick="updateScatterChart('color')">调整颜色</button>
+                            <button onclick="resetScatterChart()">重置</button>
+                        </div>
+                    </div>
+                    <div id="scatter-chart-canvas" class="chart-canvas"></div>
+                </div>
+                
+                <div id="histogram-chart" class="chart">
+                    <div class="chart-header">
+                        <h3>实例4: 全校高二年级各班男女生英语成绩评估</h3>
+                        <p class="chart-description">展示各班男女生英语平均成绩对比，包含参考线和图例</p>
+                        <div class="chart-controls-small">
+                            <button onclick="updateHistogram('bins')">调整分组</button>
+                            <button onclick="updateHistogram('data')">更新数据</button>
+                            <button onclick="resetHistogram()">重置</button>
+                        </div>
+                    </div>
+                    <div id="histogram-chart-canvas" class="chart-canvas"></div>
+                </div>
+                
+                <div id="jam-chart" class="chart">
+                    <div class="chart-header">
+                        <h3>实例5: 果酱面包配料比例</h3>
+                        <p class="chart-description">展示果酱面包的配料比例，包含主要成分占比和营养成分分析</p>
+                        <div class="chart-controls-small">
+                            <button onclick="updateJamChart('nutrition')">营养成分</button>
+                            <button onclick="updateJamChart('calories')">热量分析</button>
+                            <button onclick="resetJamChart()">重置</button>
+                        </div>
+                    </div>
+                    <div id="jam-chart-canvas" class="chart-canvas"></div>
+                </div>
+                
+                <div id="gmv-chart" class="chart">
+                    <div class="chart-header">
+                        <h3>实例6: 2013-2019财年阿里巴巴淘宝和天猫平台GMV</h3>
+                        <p class="chart-description">展示阿里巴巴淘宝和天猫平台2013-2019财年的GMV数据变化趋势</p>
+                        <div class="chart-controls-small">
+                            <button onclick="updateGmvChart('trend')">趋势分析</button>
+                            <button onclick="updateGmvChart('growth')">增长率</button>
+                            <button onclick="resetGmvChart()">重置</button>
+                        </div>
+                    </div>
+                    <div id="gmv-chart-canvas" class="chart-canvas"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 交互功能部分 -->
+    <section id="interactive" class="section">
+        <div class="container">
+            <h2>交互功能</h2>
+            <div class="interactive-content">
+                <div class="interactive-card">
+                    <h3>数据动态更新</h3>
+                    <p>实时更新图表数据，观察数据变化趋势</p>
+                    <div class="data-controls">
+                        <button onclick="startDataStream()">开始数据流</button>
+                        <button onclick="stopDataStream()">停止数据流</button>
+                    </div>
+                    <div id="stream-chart" class="mini-chart"></div>
+                </div>
+                
+                <div class="interactive-card">
+                    <h3>图表参数调整</h3>
+                    <p>通过滑块和按钮调整图表参数</p>
+                    <div class="parameter-controls">
+                        <label>透明度: <input type="range" id="opacity-slider" min="0" max="1" step="0.1" value="0.7"></label>
+                        <label>动画速度: <input type="range" id="animation-slider" min="100" max="2000" step="100" value="1000"></label>
+                    </div>
+                </div>
+                
+                <div class="interactive-card">
+                    <h3>数据导出功能</h3>
+                    <p>将图表数据导出为不同格式</p>
+                    <div class="export-controls">
+                        <button onclick="exportData('png')">导出为PNG</button>
+                        <button onclick="exportData('csv')">导出为CSV</button>
+                        <button onclick="exportData('json')">导出为JSON</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 关于部分 -->
+    <section id="about" class="section">
+        <div class="container">
+            <h2>关于本项目</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>项目介绍</h3>
+                    <p>本项目基于matplotlib数据可视化内容，使用现代前端技术创建的交互式可视化平台。展示了多种图表类型和交互功能。</p>
+                    
+                    <h3>技术栈</h3>
+                    <ul>
+                        <li>HTML5 + CSS3 + JavaScript</li>
+                        <li>Chart.js - 基础图表库</li>
+                        <li>ECharts - 高级交互图表</li>
+                        <li>响应式设计</li>
+                    </ul>
+                    
+                    <h3>使用说明</h3>
+                    <ol>
+                        <li>点击导航栏切换不同部分</li>
+                        <li>在"图表展示"部分选择不同的图表类型</li>
+                        <li>使用交互按钮调整图表参数</li>
+                        <li>在"交互功能"部分体验动态数据更新</li>
+                    </ol>
+                </div>
+                
+                <div class="about-image">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjVmNWY1Ii8+PGNpcmNsZSBjeD0iMTUwIiBjeT0iMTAwIiByPSI0MCIgZmlsbD0iIzQyODVmNCIgb3BhY2l0eT0iMC43Ii8+PHBhdGggZD0iTTEwMCAxMDAgTDE1MCA1MCBMMjAwIDEwMCBMMTUwIDE1MCBaIiBmaWxsPSIjZjQ3NDM2IiBvcGFjaXR5PSIwLjgiLz48dGV4dCB4PSIxNTAiIHk9IjE4MCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzMzMyIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE0Ij7nlLXlvbHnmoTlgLzvvJ88L3R4dD48L3N2Zz4=" alt="可视化示例">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 数据可视化交互平台. 基于matplotlib可视化内容创建.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
